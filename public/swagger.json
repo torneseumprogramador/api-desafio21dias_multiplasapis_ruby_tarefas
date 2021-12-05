@@ -1,31 +1,35 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Está é uma documentação da api em Node.js feita no desafio 21 dias de multiplas APIs com alunos do torne-se um programador, gravação disponível no link: [https://cursos.torneseumprogramador.com.br/](https://cursos.torneseumprogramador.com.br/)",
+    "description": "Está é uma documentação da api em Ruby on Rails feita no desafio 21 dias de multiplas APIs com alunos do torne-se um programador, gravação disponível no link: [https://cursos.torneseumprogramador.com.br/](https://cursos.torneseumprogramador.com.br/)",
     "version": "0.0.1",
-    "title": "API Tarefas",
+    "title": "API Tarefas & situações",
     "contact": {
       "email": "suporte@torneseumprogramador.com.br"
     }
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "tags": [
     {
-      "name": "eventos",
-      "description": "Eventos para agenda de compromissos feita no desafio"
+      "name": "Situações",
+      "description": "Situações para para uma tarefa, feita para ser utilizada na agenda de compromissos feita no desafio"
+    },
+    {
+      "name": "Tarefas",
+      "description": "Tarefas de compromissos para ser utilizada na agenda de compromissos feita no desafio"
     }
   ],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/eventos.json": {
+    "/situacoes.json": {
       "get": {
         "tags": [
-          "eventos"
+          "Situações"
         ],
-        "summary": "API que retorna os eventos cadastrados",
+        "summary": "API que retorna as situações cadastradas",
         "description": "Uma descrição de exemplo para vcs alunos que querem dar mais detahes sobre seu endpoint",
         "consumes": [
           "application/json"
@@ -38,7 +42,7 @@
           "200": {
             "description": "Sucesso",
             "schema": {
-              "$ref": "#/definitions/ListaEvento"
+              "$ref": "#/definitions/ListaSituacao"
             }
           },
           "401": {
@@ -56,10 +60,10 @@
       },
       "post": {
         "tags": [
-          "eventos"
+          "Situações"
         ],
         "summary": "Criando dados",
-        "description": "Aqui iremos criar um eventos",
+        "description": "Aqui iremos criar uma situação",
         "consumes": [
           "application/json"
         ],
@@ -70,10 +74,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Json enviado para cadastrar um evento",
+            "description": "Json enviado para cadastrar uma situacao",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventoEnvio"
+              "$ref": "#/definitions/SituacaoEnvio"
             }
           }
         ],
@@ -81,11 +85,11 @@
           "200": {
             "description": "Cadastrado com sucesso",
             "schema": {
-              "$ref": "#/definitions/RetornoEvento"
+              "$ref": "#/definitions/RetornoSituacao"
             }
           },
           "400": {
-            "description": "Os campos (id_usuario, titulo, data_inicio, data_fim) são obrigatórios",
+            "description": "Dados obrigatórios",
             "schema": {
               "$ref": "#/definitions/RetornoStatusErro"
             }
@@ -104,13 +108,13 @@
         ]
       }
     },
-    "/eventos/{id}.json": {
+    "/situacoes/{id}.json": {
       "get": {
         "tags": [
-          "eventos"
+          "Situações"
         ],
-        "summary": "Retorna um evento",
-        "description": "Endpoint para retornar um evento específico",
+        "summary": "Retorna uma situação",
+        "description": "Endpoint para retornar uma situação específica",
         "consumes": [
           "application/json"
         ],
@@ -121,7 +125,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Id do evento",
+            "description": "Id da situacao",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -131,7 +135,7 @@
           "200": {
             "description": "Sucesso",
             "schema": {
-              "$ref": "#/definitions/RetornoEvento"
+              "$ref": "#/definitions/RetornoSituacao"
             }
           },
           "401": {
@@ -155,10 +159,10 @@
       },
       "delete": {
         "tags": [
-          "eventos"
+          "Situações"
         ],
-        "summary": "Apagar um evento",
-        "description": "Endpoint para apagar um evento específico",
+        "summary": "Apagar uma situação",
+        "description": "Endpoint para apagar uma situação específica",
         "consumes": [
           "application/json"
         ],
@@ -200,10 +204,10 @@
       },
       "put": {
         "tags": [
-          "eventos"
+          "Situações"
         ],
         "summary": "Atualizando dados",
-        "description": "Aqui iremos atualizar um evento específico",
+        "description": "Aqui iremos atualizar uma situação específica",
         "consumes": [
           "application/json"
         ],
@@ -222,10 +226,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Json enviado para cadastrar um evento",
+            "description": "Json enviado para cadastrar uma situação",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventoEnvio"
+              "$ref": "#/definitions/SituacaoEnvio"
             }
           }
         ],
@@ -233,7 +237,7 @@
           "200": {
             "description": "Cadastrado com sucesso",
             "schema": {
-              "$ref": "#/definitions/RetornoEvento"
+              "$ref": "#/definitions/RetornoSituacao"
             }
           },
           "401": {
@@ -249,7 +253,249 @@
             }
           },
           "400": {
-            "description": "Os campos (id_usuario, titulo, data_inicio, data_fim) são obrigatórios",
+            "description": "Dados obrigatórios",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          }
+        },
+        "security": [
+          {
+            "token_jwt_bearer": []
+          }
+        ]
+      }
+    },
+    "/tarefas.json": {
+      "get": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "API que retorna as tarefas cadastradas",
+        "description": "Uma descrição de exemplo para vcs alunos que querem dar mais detahes sobre seu endpoint",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "$ref": "#/definitions/ListaTarefa"
+            }
+          },
+          "401": {
+            "description": "Token inválido",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          }
+        },
+        "security": [
+          {
+            "token_jwt_bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Criando dados",
+        "description": "Aqui iremos criar uma tarefa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Json enviado para cadastrar uma tarefa",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TarefaEnvio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cadastrado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/RetornoTarefa"
+            }
+          },
+          "400": {
+            "description": "Dados obrigatórios",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          },
+          "401": {
+            "description": "Token inválido",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          }
+        },
+        "security": [
+          {
+            "token_jwt_bearer": []
+          }
+        ]
+      }
+    },
+    "/tarefas/{id}.json": {
+      "get": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Retorna uma tarefa",
+        "description": "Endpoint para retornar uma tarefa específica",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da tarefa",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": {
+              "$ref": "#/definitions/RetornoTarefa"
+            }
+          },
+          "401": {
+            "description": "Token inválido",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          },
+          "404": {
+            "description": "O id de evento enviado não existe",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          }
+        },
+        "security": [
+          {
+            "token_jwt_bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Apagar uma tarefa",
+        "description": "Endpoint para apagar uma tarefa específica",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do evento",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Sem conteúdo"
+          },
+          "401": {
+            "description": "Token inválido",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          },
+          "404": {
+            "description": "O id de evento enviado não existe",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          }
+        },
+        "security": [
+          {
+            "token_jwt_bearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Atualizando dados",
+        "description": "Aqui iremos atualizar uma tarefa específica",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do evento",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Json enviado para cadastrar uma tarefa",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TarefaEnvio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cadastrado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/RetornoTarefa"
+            }
+          },
+          "401": {
+            "description": "Token inválido",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          },
+          "404": {
+            "description": "O id de evento enviado não existe",
+            "schema": {
+              "$ref": "#/definitions/RetornoStatusErro"
+            }
+          },
+          "400": {
+            "description": "Dados obrigatórios",
             "schema": {
               "$ref": "#/definitions/RetornoStatusErro"
             }
@@ -271,47 +517,52 @@
     }
   },
   "definitions": {
-    "EventoEnvio": {
+    "SituacaoEnvio": {
       "type": "object",
       "required": [
-        "id_usuario",
-        "titulo",
-        "data_inicio",
-        "data_fim"
+        "nome"
       ],
       "properties": {
-        "id_usuario": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "titulo": {
-          "type": "string"
-        },
-        "descricao": {
-          "type": "string"
-        },
-        "data_inicio": {
-          "type": "string"
-        },
-        "data_fim": {
+        "nome": {
           "type": "string"
         }
       }
     },
-    "ListaEvento": {
+    "ListaSituacao": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/RetornoEvento"
+        "$ref": "#/definitions/RetornoSituacao"
       }
     },
-    "RetornoEvento": {
+    "RetornoSituacao": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
           "format": "int32"
         },
-        "idUsuario": {
+        "nome": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "TarefaEnvio": {
+      "type": "object",
+      "required": [
+        "id_evento",
+        "titulo",
+        "situacao_id",
+        "data_criacao",
+        "data_atualizacao"
+      ],
+      "properties": {
+        "id_evento": {
           "type": "integer",
           "format": "int32"
         },
@@ -321,10 +572,49 @@
         "descricao": {
           "type": "string"
         },
-        "dataInicio": {
+        "situacao_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data_criacao": {
           "type": "string"
         },
-        "dataFim": {
+        "data_atualizacao": {
+          "type": "string"
+        }
+      }
+    },
+    "ListaTarefa": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RetornoTarefa"
+      }
+    },
+    "RetornoTarefa": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id_evento": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "titulo": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "situacao_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data_criacao": {
+          "type": "string"
+        },
+        "data_atualizacao": {
           "type": "string"
         },
         "createdAt": {
@@ -338,8 +628,18 @@
     "RetornoStatusErro": {
       "type": "object",
       "properties": {
-        "mensagem": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
           "type": "string"
+        },
+        "exception": {
+          "type": "string"
+        },
+        "traces": {
+          "type": "object"
         }
       }
     }
