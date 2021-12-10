@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: desafio21dias_multiplasapis_ruby_tarefas_production
-  username: desafio21dias_multiplasapis_ruby_tarefas
-  password: <%= ENV['DESAFIO21DIAS_MULTIPLASAPIS_RUBY_TAREFAS_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE'] %>
+  username: <%= ENV['USER'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host: <%= ENV['HOST'] %>
